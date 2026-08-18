@@ -1,0 +1,31 @@
+[rule]
+author = ["Bhuvani Rangesh"]
+description = "Triggers when there is an excessive amount of web traffic in a short period of time, which may indicate a potential DDoS attack or other malicious activity."
+from = "now-6m" #this is the default value change it to your requirement
+name = "Excessive Web Traffic"
+risk_score = 25
+rule_id = "00000000-0000-0000-0000-0000000000012"
+severity = "low"
+type = "threshold"
+
+query = '''
+event.dataset : "zeek.http"
+'''
+
+[rule.threshold]
+field = ["source.ip"]
+value = 1000
+
+[[rule.threat]]
+framework = "MITRE ATT&CK"
+[[rule.threat.technique]]
+id = "T1046"
+name = "Network Service Discovery"
+reference = "https://attack.mitre.org/techniques/T1046/"
+
+[rule.threat.tactic]
+id = "TA0007"
+name = "Discovery"
+reference = "https://attack.mitre.org/tactics/TA0007/"
+
+

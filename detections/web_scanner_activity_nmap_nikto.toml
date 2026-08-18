@@ -1,0 +1,27 @@
+  [rule]
+author = ["Bhuvani Rangesh"]
+description = "Detects web scanner activity from Nmap and Nikto"
+from = "now-6m" #this is the default value change it to your requirement
+name = "Web Scanner Activity - Nmap Nikto"
+risk_score = 25
+severity = "low"
+type = "query"
+rule_id = "00000000-0000-0000-0000-000000000019"
+
+query = '''
+event.dataset : zeek.http and user_agent_original: *Nmap* or user_agent_original: *Nikto*
+'''
+
+
+[[rule.threat]]
+framework = "MITRE ATT&CK"
+[[rule.threat.technique]]
+id = "T1046"
+name = "Network Service Discovery"
+reference = "https://attack.mitre.org/techniques/T1046/"
+
+[rule.threat.tactic]
+id = "TA0007"
+name = "Discovery"
+reference = "https://attack.mitre.org/tactics/TA0007/"
+
