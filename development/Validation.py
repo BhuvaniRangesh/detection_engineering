@@ -8,7 +8,7 @@ import os
 #    alert = tomllib.load(toml)
 failure = 0
 
-for roots, dirs, files in os.walk(r"C:\Users\bhuva\OneDrive\Desktop\python\github\converted_detections"):
+for roots, dirs, files in os.walk("detections/"):
     for file in files:
         if file.endswith(".toml"):
             full_path = os.path.join(roots, file)
