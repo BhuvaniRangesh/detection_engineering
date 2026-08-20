@@ -6,6 +6,7 @@ import os
 
 #with open(file, "rb") as toml:
 #    alert = tomllib.load(toml)
+failure = 0
 
 for roots, dirs, files in os.walk(r"C:\Users\bhuva\OneDrive\Desktop\python\github\converted_detections"):
     for file in files:
@@ -37,5 +38,8 @@ for roots, dirs, files in os.walk(r"C:\Users\bhuva\OneDrive\Desktop\python\githu
 
                 if missing_fields:
                     print(f"Missing required fields: {missing_fields}")
+                    failure = 1
                 else:
                     print("Validation Passed for:" + file)
+if failure !=0:
+     sys.exit(1)

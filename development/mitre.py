@@ -1,3 +1,4 @@
+import sys
 import tomllib
 import os
 
@@ -11,6 +12,7 @@ headers = {
 
 mitreData = requests.get(url, headers=headers).json()
 miterMapped = {}
+failure = 0
 #def getMapping(mitreData):
     #mapping = {}
 for obj in mitreData['objects']:
@@ -78,13 +80,14 @@ for file in alert_data:
         # check to ensure MITRE Tactic exists
         if tactic not in mitre_tactic_list:
             print("The MITRE Tactic supplied does not exist:" + "\"" + tactic + "\"" + " in " + file)
-
+            failure = 1
         # Check to make sure the MITRE Technique ID is valid
         try:
             if miterMapped[technique_id]:
                 pass
         except KeyError:
             print("The MITRE Technique ID supplied does not exist:" + "\"" + technique_id + "\"" + " in " + file)
+            failure = 1
 
         # check to see if the MITRE ID + Name combination is valid
         try:
@@ -92,6 +95,7 @@ for file in alert_data:
             alert_name = line['technique_name']
             if alert_name != mitre_name:
                 print("The MITRE Technique ID + Name combination is invalid: " + "\"" + technique_id + "\"" + " + " + "\"" + alert_name + "\"" + " in " + file)
+                failure = 1
         except KeyError:
             pass
 
@@ -103,6 +107,7 @@ for file in alert_data:
                 alert_name = line['subtechnique_name']
                 if alert_name != mitre_name:
                     print("The MITRE Sub-Technique ID + Name combination is invalid: " + "\"" + technique_id + "\"" + " + " + "\"" + alert_name + "\"" + " in " + file)
+                    failure = 1
         except KeyError:
             pass    
 
@@ -112,3 +117,5 @@ for file in alert_data:
                 print("The MITRE Technique ID supplied is deprecated: " + "\"" + technique_id + "\"" + " in " + file)
         except KeyError:
             pass
+if failure !=0:
+     sys.exit(1)

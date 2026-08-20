@@ -5,7 +5,7 @@ import os
 
 # Added /s/detection-engineering to the URL path
 url = "https://26476eb0295c4273ad17769e8df3e4a3.us-central1.gcp.cloud.es.io/s/detection-engineering/api/detection_engine/rules"
-api_key = "VFA5T19aOEI4OFlwS0c2MXF4Ykk6cnVJeURvaW9kb21VTU92ZTNMLVZjZw=="
+api_key = os.environ['Elastic_API_Key']
 
 headers = {
     'Content-Type': 'application/json;charset=UTF-8',
