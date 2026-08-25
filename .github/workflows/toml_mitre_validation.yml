@@ -12,4 +12,6 @@ jobs:
 
       - run: |
           python development/Validation.py
-          python development/mitre.py
+      - name: Run MITRE Script
+        run: python -u development/mitre.py
+          
