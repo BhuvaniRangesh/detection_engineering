@@ -1,31 +1,15 @@
 name: TOML and MITRE Validation
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install requests tomli
-
-      - name: Run Validation Script
-        run: python development/Validation.py
-
-      - name: Run MITRE Script
-        run: python development/mitre.py
+      - run: |
+          python development/validation.py
+          python development/mitre.py
